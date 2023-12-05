@@ -1,0 +1,98 @@
+public class BST {
+
+	int size;
+	BSTNode root;
+	
+	public BST() {
+	}
+	
+	public BST(int n) {
+		root = new BSTNode(n);
+	}
+		
+	public void add(int n) {
+		add(n, root);
+	}
+	
+	private void add(int n, BSTNode node) {
+		if (node == null)
+			root = new BSTNode(n);
+		else {
+			if (n < node.val) {
+				if (node.left == null) { 
+					System.out.println("Created left child of " + node.val);
+					node.left = new BSTNode(n);
+				}
+				else
+					add(n, node.left);
+			}
+			else {
+				if (node.right == null) {
+					System.out.println("Created right child of " + node.val);
+					node.right = new BSTNode(n);
+				}
+				else
+					add(n, node.right);
+			}
+		}
+			
+	}
+
+	public void displaySortedOrder() {
+		if (root==null)
+			return;
+		System.out.print("inorder: ");
+		inorder(root);
+		System.out.println();
+		System.out.print("preorder: ");
+		preorder(root);
+		System.out.println();
+		System.out.print("postorder: ");
+		postorder(root);
+		System.out.println();
+	}
+	
+	private void inorder(BSTNode r) {
+		if (r == null)
+			return;
+		inorder(r.left);
+		System.out.print(r.val + " ");
+		inorder(r.right);
+	}
+
+	private void preorder(BSTNode r) {
+		if (r == null)
+			return;
+		System.out.print(r.val + " ");
+		preorder(r.left);
+		preorder(r.right);
+	}
+
+	private void postorder(BSTNode r) {
+	
+		if (r == null)
+			return;
+		postorder(r.left);
+		postorder(r.right);
+		System.out.print(r.val + " ");
+	}
+
+	
+	public static void main(String[] args) {
+		BST tree = new BST();
+		int[] a = {10, 7, 15, 1, 8, 18, 4, 16, 19};
+		for (int i : a) tree.add(i);
+		tree.displaySortedOrder();
+	}
+
+}
+
+class BSTNode {
+	int val;
+	BSTNode left;
+	BSTNode right;
+	public BSTNode(int n) {
+		System.out.println("\t Created node for " + n);
+		val = n;
+	}
+}

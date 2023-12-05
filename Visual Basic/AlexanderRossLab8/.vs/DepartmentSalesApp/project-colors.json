@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "b7c120b9-5f09-494c-8264-1b6c1e9baffd": {
+      "ProjectGuid": "b7c120b9-5f09-494c-8264-1b6c1e9baffd",
+      "DisplayName": "DepartmentSalesApp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

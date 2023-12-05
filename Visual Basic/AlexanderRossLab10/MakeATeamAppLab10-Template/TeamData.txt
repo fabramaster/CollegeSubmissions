@@ -1,0 +1,6 @@
+Tigers,Division 1,Rafael Nadal,6/3/1986,Centre,Roger Federer,8/8/1981,Forward,Andy Murray,5/15/1987,Defence,Novak Djokavic,5/22/1987,Goalie
+Bears,Division 1,Milos Roanic,12/27/1990,Roamer,Jo-Wilfried Tsonga,4/17/1985,Forward,Gael Monfils,9/1/1990,Defence
+Badgers,Division 1,Dominic Thiem,9/3/1993,Centre,John Isner,4/26/1985,Forward,Kyle Edmund,1/8/1995,Defence
+Lions,Division 2,Richard Gasquet,8/18/1986,Centre,Grigor Dimitrov,5/16/1991,Roamer,Lucas Pouille,2/23/1994,Forward
+Eagles,Division 3,Juan Martin Del Potro,9/23/1988,Defence,Sasha Zverev,4/20/1997,Goalie,Francis Tiafoe,1/20/1998,Roamer
+Sharks,Division 1,Pierre Herbert,3/18/1991,Goalie,Felix Auger Aliassime,8/8/2000,Roamer

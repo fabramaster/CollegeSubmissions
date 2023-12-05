@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"lab1","c":"MySimpleList","l":"add(int)"},{"p":"lab1","c":"MySimpleList","l":"get(int)"},{"p":"lab1","c":"MySimpleList","l":"remove(int)"},{"p":"lab1","c":"MySimpleList","l":"size()"},{"p":"lab1","c":"MySimpleList","l":"toString()"}]

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "e81ed6a0-3d2c-49d0-952a-8d96f1ab768c": {
+      "ProjectGuid": "e81ed6a0-3d2c-49d0-952a-8d96f1ab768c",
+      "DisplayName": "MortgageCalculatorApp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <math.h>
+
+int main()
+{
+    int x;
+    double result;
+    double max_result = -INFINITY;
+    
+    for(x = -2; x <= 8; x++)
+    {
+        result = pow(x, 3) - 14 * pow(x, 2) + 56 * x - 64;
+        
+        if(result > max_result)
+        {
+            max_result = result;
+        }
+    }
+    
+    printf("The maximum output value is: %.2lf", max_result);
+    
+    return 0;
+}
+

@@ -1,0 +1,11 @@
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\bin\Debug\DepartmentSales.exe.config
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\bin\Debug\DepartmentSales.exe
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\bin\Debug\DepartmentSales.pdb
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\bin\Debug\DepartmentSales.xml
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\obj\Debug\DepartmentSales.vbprojResolveAssemblyReference.cache
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\obj\Debug\DepartmentSales.DeptDailySalesFRM.resources
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\obj\Debug\DepartmentSales.Resources.resources
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\obj\Debug\DepartmentSales.vbproj.GenerateResource.Cache
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\obj\Debug\DepartmentSales.exe
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\obj\Debug\DepartmentSales.xml
+D:\Users\300105363\AppData\Local\Temporary Projects\DepartmentSales\obj\Debug\DepartmentSales.pdb

@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "00a2db5f-8458-4d45-8d9c-7f5afc2e9a1b": {
+      "ProjectGuid": "00a2db5f-8458-4d45-8d9c-7f5afc2e9a1b",
+      "DisplayName": "LoanApplicationApp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

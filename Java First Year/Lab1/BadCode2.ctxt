@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=BadCode2
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment1.text=sets\ void\ to\ private\ instead\ of\ public,\ also\ forgets\ (static)\ Also\ forgets\ to\ capitalize\ "String"
+numComments=2

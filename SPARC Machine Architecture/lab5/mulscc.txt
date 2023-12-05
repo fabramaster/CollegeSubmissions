@@ -1,0 +1,37 @@
+save %sp, -96, %sp
+mov 3, %g1
+mov 5, %g2
+mov 0, %y
+nop
+nop
+nop
+and cc %g0, %g0, %o1
+
+and %g2, 1, %o0
+mulscc %g1, %o0, %o0
+add %o0, %l0, %l0
+
+srl %g2, 1, %g2
+
+and %g2, 1, %o0
+mulscc %g1, %o0, %o0
+sll %o0, 1, %o0
+add %o0, %l0, %l0
+
+srl %g2, 1, %g2
+
+and %g2, 1, %o0
+mulscc %g1, %o0, %o0
+sll %o0, 2, %o0
+add %o0, %l0, %l0
+
+srl %g2, 1, %g2
+
+and %g2, 1, %o0
+mulscc %g1, %o0, %o0
+sll %o0, 3, %o0
+add %o0, %l0, %l0
+
+mov %l0, %o0
+ret
+restore

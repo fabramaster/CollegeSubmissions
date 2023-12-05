@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "ace76ac0-8211-48f0-a277-2dc049d6e79b": {
+      "ProjectGuid": "ace76ac0-8211-48f0-a277-2dc049d6e79b",
+      "DisplayName": "AlarmTimerApp",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

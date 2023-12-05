@@ -1,0 +1,66 @@
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe.config
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\bin\Debug\AlarmTimerApp.pdb
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\bin\Debug\AlarmTimerApp.xml
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbprojResolveAssemblyReference.cache
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\obj\Debug\AlarmTimerApp.AlarmTimerFRM.resources
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\obj\Debug\AlarmTimerApp.Resources.resources
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbproj.GenerateResource.Cache
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\obj\Debug\AlarmTimerApp.exe
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\obj\Debug\AlarmTimerApp.xml
+D:\Users\300105363\AppData\Local\Temporary Projects\AlarmTimerApp\obj\Debug\AlarmTimerApp.pdb
+D:\VB\W2018\Week7\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe.config
+D:\VB\W2018\Week7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.exe
+D:\VB\W2018\Week7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.xml
+D:\VB\W2018\Week7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.pdb
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe.config
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.exe
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.xml
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.pdb
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.pdb
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.xml
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbprojResolveAssemblyReference.cache
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.AlarmTimerFRM.resources
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.Resources.resources
+D:\VB\W2018\Week8\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbproj.GenerateResource.Cache
+D:\VB\W2018\Week8\AlarmTimerApp-Template\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe.config
+D:\VB\W2018\Week8\AlarmTimerApp-Template\AlarmTimerApp\obj\Debug\AlarmTimerApp.exe
+D:\VB\W2018\Week8\AlarmTimerApp-Template\AlarmTimerApp\obj\Debug\AlarmTimerApp.xml
+D:\VB\W2018\Week8\AlarmTimerApp-Template\AlarmTimerApp\obj\Debug\AlarmTimerApp.pdb
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe.config
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\bin\Debug\AlarmTimerApp.pdb
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\bin\Debug\AlarmTimerApp.xml
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbprojAssemblyReference.cache
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\obj\Debug\AlarmTimerApp.AlarmTimerFRM.resources
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\obj\Debug\AlarmTimerApp.Resources.resources
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbproj.GenerateResource.cache
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\obj\Debug\AlarmTimerApp.exe
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\obj\Debug\AlarmTimerApp.xml
+C:\aDDrive\VB\aW2022\Labs\Lab7\AlarmTimerApp-Template\AlarmTimerApp\obj\Debug\AlarmTimerApp.pdb
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe.config
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.pdb
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.xml
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbproj.AssemblyReference.cache
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.AlarmTimerFRM.resources
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.Resources.resources
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbproj.GenerateResource.cache
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbproj.CoreCompileInputs.cache
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.exe
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.xml
+D:\Fiverr Projects New 4\66 fabramaster\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.pdb
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbproj.AssemblyReference.cache
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbproj.SuggestedBindingRedirects.cache
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.AlarmTimerFRM.resources
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.Resources.resources
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbproj.GenerateResource.cache
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.vbproj.CoreCompileInputs.cache
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.exe
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.xml
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\obj\Debug\AlarmTimerApp.pdb
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe.config
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.exe
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.pdb
+C:\Users\Fabra\source\repos\AlexanderRossLab7\AlarmTimerApp\AlarmTimerApp\bin\Debug\AlarmTimerApp.xml

@@ -1,0 +1,18 @@
+5-1
+save %sp, -12 %sp     ! allocate 20 bytes of stack space for variables
+st %i0, [ %sp + 0 ]    ! save a at offset 0
+st %i1, [ %sp + 4 ]    ! save b at offset 4
+stb %i2, [ %sp + 5]   ! save d at offset 5
+st %i3, [ %sp + 9 ]   ! save c at offset 9
+sth %i4, [ %sp + 11 ]  ! save e at offset 11
+
+5-2
+begin_fn
+local_var a, char, 1
+local_var b, char, 1
+var d, int
+local_var c, char, 1
+var e, short
+
+5-3
+In general, it is best to declare variables in an order that minimizes the amount of padding required for alignment. This means declaring variables of the same size and type together, and ordering the variables in decreasing size. For example, if we have the variables char a, int b, and char c, it would be best to declare them in the order int b, char a, char c so that the padding required for alignment is minimized.
