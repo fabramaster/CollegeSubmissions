@@ -1,0 +1,94 @@
+
+
+body {
+	font-family: 'Arial', sans-serif;
+	background-color: #000;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+    background-image: url('lazers.jpg');
+    background-size: cover;
+    background-position: top; 
+    padding: 20px;
+    text-align: center;
+    transition: text-shadow 0.5s ease-in-out;
+}
+
+
+h1 {
+	margin: 0;
+}
+
+nav {
+    background-image: url('sparkles.gif');
+    padding: 10px;
+    
+}
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+}
+
+li {
+	display: inline;
+}
+
+
+
+a {
+    text-decoration: none;
+    color: #fff; /* Set the text color to white */
+    font-weight: bold;
+}
+.hero {
+	text-align: center;
+	padding: 20px;
+}
+.footer {
+	background-color: #000 !important;
+}
+.gallery {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	padding: 20px;
+}
+.purple-text {
+    color: purple;
+}
+.bg-warning {
+    background-color: black !important;
+}
+.neon-glow {
+	text-shadow: 0 0 10px #C724B1, 0 0 20px #C724B1, 0 0 30px #C724B1;
+}
+
+.rotate {
+	transform: rotate(360deg);
+	transition: transform 0.5s ease-in-out;
+}
+.about-content {
+    background-image: url('wallpaper80s.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #FFF; /* Set text color to be readable on the background image */
+    padding: 40px;
+    margin-top: 20px;
+}
+
+
+footer {
+	text-align: center;
+	padding: 10px;
+	background-color: #ffcc00;
+}
+
