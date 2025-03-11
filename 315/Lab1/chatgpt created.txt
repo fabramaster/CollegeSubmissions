@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int intComp(const void* a, const void* b) {
+    return (*(int*)a - *(int*)b);
+}
+
+void sortInt(int* a, int n) {
+    qsort(a, n, sizeof(int), (void*)intComp);
+}
+
+int main() {
+    char firstName[20];
+    int numbers[100];
+    int num, count = 0, sum = 0;
+
+    printf("Please enter your first name: \n");
+    scanf("%s", firstName);
+
+    do {
+        printf("%s, enter a positive integer (or -1 to quit): ", firstName);
+        scanf("%d", &num);
+
+        if (num != -1) {
+            numbers[count] = num;
+            count++;
+            sum += num;
+        }
+    } while (num != -1);
+
+    if (count == 0) {
+        printf("No numbers entered. Exiting program.\n");
+        return 0;
+    }
+
+    sortInt(numbers, count);
+
+    double median;
+    if (count % 2 == 0) {
+        median = (numbers[count / 2 - 1] + numbers[count / 2]) / 2.0;
+    } else {
+        median = numbers[count / 2];
+    }
+
+    printf("The maximum is:      %6.2f\n", (double)numbers[count - 1]);
+    printf("The minimum is:      %d\n", numbers[0]);
+    printf("The average is:      %6.3f\n", (double)sum / count);
+    printf("The sum is:          %d\n", sum);
+    printf("The median is: %6.1f\n", median);
+
+    return 0;
+}

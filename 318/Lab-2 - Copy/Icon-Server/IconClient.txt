@@ -1,0 +1,82 @@
+import javax.swing.*;
+import java.net.*;
+import java.io.*;
+
+public class IconClient {
+    public static final String HOST = "localhost";
+    public static final int PORT = 4444;
+
+    public static void main(String[] args) {
+        String input;
+        int number;
+        
+        // Keep asking until valid input is received
+        while (true) {
+            input = JOptionPane.showInputDialog(null, 
+                "Enter a number (1-3):", 
+                "Input", 
+                JOptionPane.QUESTION_MESSAGE);
+                
+            if (input == null) {
+                System.exit(0);  // User clicked Cancel
+            }
+            
+            try {
+                number = Integer.parseInt(input);
+                if (number >= 1 && number <= 3) {
+                    break;  // Valid input received
+                }
+            } catch (NumberFormatException e) {
+                // Invalid input, will ask again
+            }
+            
+            JOptionPane.showMessageDialog(null, 
+                "Please enter a valid number (1-3)", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+
+        try {
+            Socket socket = new Socket(HOST, PORT);
+            
+            // Send the number to server
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            out.println(input);
+            
+            // Receive file size
+            DataInputStream dis = new DataInputStream(socket.getInputStream());
+            long fileSize = dis.readLong();
+            
+            // Receive and save the file
+            String outputFile = "newbug" + input + ".gif";
+            FileOutputStream fos = new FileOutputStream(outputFile);
+            byte[] buffer = new byte[4096];
+            int count;
+            long received = 0;
+            InputStream in = socket.getInputStream();
+            
+            while (received < fileSize && (count = in.read(buffer)) > 0) {
+                fos.write(buffer, 0, count);
+                received += count;
+            }
+            
+            fos.close();
+            socket.close();
+            
+            // Display the received image
+            ImageIcon icon = new ImageIcon("newbug" + input + ".gif");
+            JOptionPane.showMessageDialog(null,
+                "Have a good one!",
+                "Display an icon",
+                JOptionPane.PLAIN_MESSAGE,
+                icon);
+                
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host: " + HOST);
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for connection to: " + HOST);
+            System.exit(1);
+        }
+    }
+}

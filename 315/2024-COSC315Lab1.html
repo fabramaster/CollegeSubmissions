@@ -1,0 +1,1032 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="GENERATOR" content="Mozilla/4.78 [en] (Windows NT 5.0;
+      U) [Netscape]">
+    <meta name="Author" content="Modified by: Alan Kennedy">
+    <title>CoSc 315 Lab 1</title>
+  </head>
+  <body style=" background-color: rgb(255, 255, 224);">
+    <center><b><font size="+2">Computer Science 315</font></b> <br>
+      <b><font size="+1">Laboratory 1 - Using the C Programming Language</font></b>
+      <br>
+      <b>Due: 7am Monday January 29, 2024<br>
+        (You will have two lab periods)</b><br>
+      <hr width="75%"></center>
+    <p>In this course, we will be performing experiments -- most of the
+      time, our experiments will be done using the C language, and
+      rarely we'll use the Java language. In this lab, we will become
+      familiar with some C programming. </p>
+    <p>C is a general purpose language which has features of a
+      high-level procedural language, and yet allows some low-level
+      operations as well. Many operating systems are written in C. In
+      particular, most of the UNIX operating system utilities are
+      written in C, so we will be using this language when we wish to
+      experiment with UNIX and its utilities. </p>
+    <p>Our Sun UNIX system is using SunOS 5.9, also known as Solaris 9
+      (verify this with the <tt>uname</tt> command with and without the
+      <tt>-r</tt> option) <br>
+    </p>
+    Our version of C is GNU C, from the <a href="http://www.fsf.org/">Free
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      Software Foundation</a>. The compiler is in a file called <tt>/usr/bin/gcc</tt>.
+    Since the <tt>/usr/bin</tt> directory is in your "PATH", we can do
+    the following:
+    <div style="margin-left: 40px; font-family: monospace;"><br>
+      $ <span style="font-weight: bold;">gcc -v</span><br>
+      Using built-in specs.<br>
+      COLLECT_GCC=gcc<br>
+COLLECT_LTO_WRAPPER=/usr/gcc/4.8/lib/gcc/sparc-sun-solaris2.11/4.8.2/lto-wrapper<br>
+      Target: sparc-sun-solaris2.11<br>
+      
+...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      &lt;-- Lots of text will appear here<br>
+      Thread model: posix<br>
+      gcc version 4.8.2 (GCC)<br>
+    </div>
+    <span style="font-family: monospace;"><br>
+    </span>In the invocation of the compiler, I used the <tt>-v</tt>
+    optionto display the compiler's version number. The <tt>v</tt>
+    actually stands for "verbose", and can be used whenever you wish to
+    find out exactly what sequence of compile commands are being
+    executed. Here we see that we have version 7.3.0 of the <tt>gcc</tt>
+    compiler.
+    <p>There are no C manuals or references included with the system.
+      But, the man pages give some information: </p>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ <span style="font-weight: bold;">man gcc</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>man page about how to use gcc<br><br></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ <span style="font-weight: bold;">man math</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>man page about the C library of math functions and constants</i></pre>
+    (To exit from either of the above, type <tt>q</tt> for "quit".) <br>
+    <br>
+    To compile a program using GNU C, use the <tt>gcc</tt> command:
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ <span style="font-weight: bold;">gcc -o myprog myprog.c -lm</span></pre>
+    This command says to compile the C source file called <tt>myprog.c</tt>,
+    using (in addition to the standard libraries) the math library (<tt>-lm</tt>),
+and
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    put the executable program into a file called <tt>myprog</tt> (<tt>-o
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      myprog</tt>).
+    <p>Another example: </p>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ <span style="font-weight: bold;">gcc -g myfile.c myotherfile.o</span></pre>
+    This command says to compile the C source file called <tt>myfile.c</tt>,
+    and link it with the object file (previously compiled) called <tt>myotherfile.o</tt>.
+    No output file was specified, so the executable program will be
+    placed into a file called <tt>a.out</tt>, by default. The <tt>-g</tt>
+    switch tells it to prepare the program for use in the debugger, <tt>gdb</tt>.
+    <p>Yet another example: </p>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ <span style="font-weight: bold;">gcc -c mytest.c</span></pre>
+    This command says to compile the C source file called <tt>mytest.c</tt>,
+    but don't prepare an executable program. Instead, prepare an object
+    file called <tt>mytest.o</tt> (which we may later link with other
+    object files, or include in a <tt>gcc</tt> command).
+    <p>And the most basic way to compile and create an executable: </p>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ <span style="font-weight: bold;">gcc mytest.c</span></pre>
+    This command says to compile the C source file called <tt>mytest.c</tt>,
+    and prepare an executable program called <tt>a.out</tt>. To run
+    your program you would then just type <tt>a.out</tt> on the command
+    line.
+    <p>If a program crashes, a copy of part of the corresponding process
+      is saved as a file called <tt>core</tt>. This has its uses, but
+      for now you can consider it junk and delete it when it occurs
+      (it's a large file).<br>
+      <br>
+    </p>
+    <hr width="100%" size="2"><font size="+1"><b><br>
+        Some C Background</b></font><br>
+    <p><b>Arrays</b></p>
+    Basic arrays in C are different from arrays in Java. Whereas an
+    array in Java is an object, arrays in C are just pointers (actually
+    <i>pointer constants</i>). Consider the following C program:
+    <blockquote><tt>#include &lt;stdio.h&gt;<br>
+        void printMyArray(int *a, int n);<br>
+      </tt> <tt>int main() {</tt><br>
+      <tt>&nbsp; int const LIMIT = 5;</tt><br>
+      <tt>&nbsp; int nums[LIMIT];</tt><br>
+      <tt>&nbsp; int i;</tt><br>
+      <tt>&nbsp; for(i=0; i&lt;LIMIT; i++) {</tt><br>
+      <tt>&nbsp;&nbsp;&nbsp; nums[i] = i * 11;</tt><br>
+      <tt>&nbsp; }</tt><br>
+      <tt>&nbsp; printMyArray(nums,LIMIT);</tt><br>
+      <tt>&nbsp; return 0;</tt><br>
+      <tt>}</tt><br>
+      <tt>void printMyArray(int *a, int n) {</tt><br>
+      <tt>&nbsp; int i;</tt><br>
+      <tt>&nbsp; for(i=0; i&lt;n; i++) printf("%d\n",a[i]);</tt><br>
+      <tt>}</tt></blockquote>
+    <p> Let's look at this code line-by-line.<br>
+    </p>
+    <p>The second line of the program: <br>
+      <br>
+      <tt>&nbsp;&nbsp;&nbsp; void printMyArray(int *a, int n);</tt><br>
+      <br>
+      is a function header without the body. Why is it there? The answer
+      has to do with the way the C compiler processes a C program.<br>
+    </p>
+    <p>The C compiler reads the code from top to bottom. As it reads
+      each word it needs to recognize the word. Words such as <tt>int</tt>,
+      <tt>void</tt>, <tt>const</tt>, and <tt>for</tt> are keywords
+      that are built into the language and are therefore automatically
+      recognized. Words (i.e. <i>identifiers</i>) such as <tt>LIMIT</tt>,
+      <tt>nums</tt>, <tt>i</tt>, and <tt>printMyArray</tt> are words
+      that we made up and are therefore unrecognized by the compiler.
+      Any time we make up a word, we have to tell the compiler what type
+      of word it is. And, we have to do this the first time the compiler
+      sees the word, otherwise the compiler will give us an error
+      message indicating that it doesn't recognize the identifier. <br>
+    </p>
+    <p>This means that the first time an identifier appears in a
+      program, it has to be in a declaration statement. We are somewhat
+      comfortable with this notion when we code the contents of Java
+      methods. However, Java doesn't seem to require the methods of a
+      class themselves be declared "before" they are used in other
+      methods. By "before" I mean <i>above</i> in the text document of
+      the code. The reality is that Java <u>does</u> require
+      identifiers be declared before they are used, but Java's compiler
+      does an initial scan over your code looking for declarations of
+      methods (and variables at the class level) so that it can make a
+      comprehensive list of identifiers. It does this extra pass before
+      it compiles the code of each method.<br>
+    </p>
+    <p>So, the reason we need the second line of the of the program is
+      because we decided to code the <tt>printMyArray()</tt> function
+      at the bottom of the file. Since the <tt>main()</tt> function <u>uses</u>
+      the the <tt>printMyArray()</tt> function before the <tt>printMyArray()</tt>
+      function is declared, the compiler would not have known what the <tt>printMyArray</tt>
+      identifier is and it would therefore have given us an unrecognized
+      identifier error.<i> Forward declaring</i> functions in this
+      manner is quite common in C to let the compiler know the signature
+      of a function before it is coded. This type of line is often
+      referred to as a "<i>prototype</i>" as it makes it clear to the
+      compiler how the function is allowed to be used. The prototype in
+      the above program says the function can be called in a void
+      context and it must take exactly two parameters - the first must
+      be an <tt>int</tt> pointer and the second must be an <tt>int</tt>
+      value.</p>
+    <p>The first line of the main function declares a constant called <tt>LIMIT</tt>.
+      The syntax is similar to Java and we also follow the convention of
+      using uppercase letters for the identifier.<br>
+    </p>
+    <p>The statement "<tt>int nums[LIMIT];</tt>" declares an array
+      variable called <tt>nums</tt> and allocates the space associated
+      with the array (space for 5 <tt>int</tt> values) in the <i>Stack</i>
+      area of memory. This is different from Java. Although an array
+      reference variable is on the Stack in Java, the space for the 5 <tt>int</tt>s
+      is stored in the <i>Heap</i> of memory in Java. We could have
+      allocated the space for our C array from the <i>Heap</i>, but "<tt>int
+
+
+
+
+
+
+        nums[LIMIT];</tt>" is not the syntax to do that. We will learn
+      how to allocate an array from the <i>Heap</i> later. For now,
+      let's continue looking at the above program.<br>
+    </p>
+    <p>The <tt>for</tt> loop shows that using an <tt>int</tt> array is
+      just like Java in terms of access and assignment.<br>
+    </p>
+    <p>Let's now consider the "<tt>printMyArray</tt>" function which
+      takes an <tt>int</tt> address (i.e. an <tt>int</tt> pointer) as
+      well as an <tt>int</tt> value. Just like Java, all variables are
+      passed into functions <i>By Value</i>. This means the local
+      variable "<b>a</b>" stores a copy of the address that is passed
+      into the function when it is called. Similarly, "<b>n</b>" is a
+      local variable that stores a copy of the <tt>int</tt> value that
+      is passed into the function when it is called. Remember, that "<i>local
+
+
+
+
+
+
+        variable</i>" means <i>local</i> to the function in which the
+      variable is declared. Most of the time, in C, when a function
+      accepts an array as a parameter, you also need to pass in an <tt>int</tt>
+      value indicating the size of the array. Since C arrays are just
+      pointers, there is no other mechanism we can use in C to know the
+      length of an array. This contrasts Java arrays which have a <tt>length</tt>
+      property that can be used to know the number of elements of the
+      array. Recall that this is possible in Java since arrays are
+      objects in Java.<br>
+    </p>
+    You should copy, compile, and run the above program and experiment
+    with it.<br>
+    <p><br>
+      <b>Some Memory Concepts</b><br>
+    </p>
+    <p>Let's start by taking a look at how Java would declare an array:<br>
+    </p>
+    <blockquote>
+      <p><tt>int nums[] = new int[LIMIT];&nbsp;&nbsp;&nbsp; // This is
+          Java code</tt><br>
+      </p>
+    </blockquote>
+    <p>In Java, the reference variable, <tt>nums</tt> (which is similar
+      to a pointer), is located on the <i>Stack</i> area of memory and
+      it does NOT store the elements of the array. Instead, it stores
+      the location (address) of an Array object. The Array object itself
+      is located in another area of memory called the <i>Heap</i>. In
+      Java, the <tt>new</tt> operator requests that space be allocated
+      from the Heap (in the above case, enough space for 5 <tt>int</tt>s).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <br>
+    </p>
+    <p>Space used for variables in the Stack area of memory goes back to
+      the system (as memory that is eligible to be reused) once the
+      function that allocated the memory comes to an end. On the other
+      hand, data that is allocated on the Heap area of memory persists
+      beyond the life of the function that allocated the memory (as long
+      as the program is still running). In Java, Heap memory is given
+      back to the system once there are no more reference variables
+      pointing to it. A so-called <i>garbage collection</i> process is
+      constantly running in Java programs looking for objects on the
+      Heap that are no longer referenced by anything. <br>
+    </p>
+    <p>Although the Stack and Heap exist and are used in identical ways
+      in both C and Java, there is no garbage collection in C. In C,
+      when we ask for memory from the Heap (using a C function called <tt>malloc(..)</tt>,
+      rather than the Java <tt>new</tt> operator) we will need to give
+      the memory back explicitly (using the <tt>free(..)</tt>
+      function). We will look at the <tt>malloc(..)</tt> and <tt>free(..)</tt>
+      functions a little later.<br>
+    </p>
+    <p>Here is a memory map model representing the identifiers and
+      memory of the above C program (the memory addresses are just made
+      up):</p>
+    <img src="2024-COSC315Lab1_files/Lab1-StackArray.png" alt="Fig Stack Array" width="366" height="590" border="2">
+    <p>The identifier <tt>nums</tt> itself doesn't appear here. So,
+      what is <tt>nums</tt>? The variable <tt>nums</tt> is an <tt>int</tt>
+      pointer pointing to the location of <tt>nums[0]</tt>. If you were
+      to print the value of <tt>nums</tt> and the value of <tt>&amp;nums[0]</tt>
+      you would see that they are the same value. <br>
+    </p>
+    <p>We learned in class about the "<i>address of</i>" operator "<b>&amp;</b>"
+      and the "<i>dereference</i>" operator "<b>*</b>" which are both
+      important when using pointers. Can we use them with arrays? Yes,
+      arrays are truly pointers, so anything that you can do with
+      pointers, you can do with arrays. You just have to remember that
+      arrays are <i>pointer constants</i>, so once you initialize an
+      array variable you can't later make it point somewhere else,
+      whereas regular pointers can be reassigned.<br>
+    </p>
+    <p>Recall that we can use the dereference operator to get the value
+      to which a pointer points. This means we can use <tt>*nums</tt>
+      to refer to <tt>nums[0]</tt>. Try it in the program by adding the
+      statement<br>
+    </p>
+    <p><tt>&nbsp;&nbsp;&nbsp; *nums = 12345;</tt><br>
+    </p>
+    <p>just before you call the <tt>printMyArray()</tt> function. You
+      will see that the value of <tt>nums[0]</tt> did change to 12345.<br>
+    </p>
+    <p><b>Performing Arithmetic on Pointers</b><br>
+    </p>
+    <p>C allows you to add and subtract integer values to pointers. For
+      example, if <tt>p</tt> is an <tt>int</tt> pointer, <tt>(p+1)</tt>
+      refers to the address that is one more than <tt>p</tt>. This
+      means that if <tt>p</tt> stores the address 6570, then <tt>(p+1)</tt>
+      stores the address 6571. In fact, we can dereference <tt>(p+1)</tt>
+      (using&nbsp; <tt>*(p+1)</tt>) to get the value to which <tt>(p+1)</tt>
+      points.<br>
+    </p>
+    <p>Let's see this in action. Rewrite the last line of the <tt>printMyArray()</tt>
+      function so that it looks like this:<br>
+    </p>
+    <p><tt>&nbsp; &nbsp; for(i=0; i&lt;n; i++) printf("%d\n", *(a+i));</tt><br>
+      <br>
+      Try recompiling and running it. Notice that it does exactly what
+      it previously did.<br>
+    </p>
+    <p>The<tt> *(a+i) </tt>syntax is a little cumbersome, so the square
+      brackets syntax<tt> a[i] </tt>was introduced into the language as
+      <i>syntactic sugar</i> - just an easier way to express something
+      that we often need to code. You should always use the square
+      bracket syntax (i.e.<tt> a[i]</tt>) as it is much easier to read.<br>
+    </p>
+    <p>Just as we can add integer values to a pointer to get the next
+      address, we can also subtract integer values from a pointer in the
+      same way (e.g. <tt>(p-1)</tt>) to get the previous address.<br>
+    </p>
+    <p><b>Important Notes:</b><br>
+    </p>
+    <ul>
+      <li>There is a unique memory address for each byte of memory in a
+        program.</li>
+      <li>Each data type takes up a fixed number of bytes on a machine
+        and most are multiple bytes in size. The number of bytes that
+        corresponds to a data type is machine dependent. For example an<tt>
+          int </tt>on one machine might be 2 bytes, and on other
+        machines it might be 4 bytes or even 8 bytes.</li>
+      <li>Fortunately, the C compiler does the per-data-type math for us
+        when we work with pointers. This means that if<tt> p </tt>is an<tt>
+          int </tt>pointer and <tt>int</tt>s are 4 bytes in size, when
+        we use <tt>(p+1)</tt>, the compiler knows that we mean that we
+        want the next<tt> int </tt>address and not the next byte. <u>The
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          compiler can do this for us because we declare our pointers to
+          point to the address of a particular type of data</u>.<br>
+      </li>
+      <li>The memory model diagrams that we use here and in class use
+        the simplifying (but incorrect) assumption that all data types
+        are 1 byte in size.<br>
+      </li>
+    </ul>
+    <p><br>
+      <b>Allocating Heap Memory (</b>The <i>malloc()</i> and <i>free()</i>
+      functions<b>)</b><br>
+    </p>
+    <p>Let's modify the program to accomplish the same thing, but this
+      time let's allocate the space for the array from the <i>Heap</i>
+      area of memory.<br>
+    </p>
+    <p>To allocate memory from the Heap, we use the<tt> malloc() </tt>function.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      The<tt> malloc() </tt>function takes an integer argument that
+      indicates the number of bytes you want to allocate. <tt>malloc()</tt>
+      finds a contiguous chunk of memory (in the Heap area) of the size
+      specified, and it returns the address of the first byte that was
+      allocated. The address that is returned is of data type <tt>*void</tt>
+      (a generic address), so we need to cast the address into the
+      appropriate data type so that we can assign it to a typed pointer
+      variable.<br>
+    </p>
+    <p>Here is the original program with the array declared from the
+      Heap:<br>
+    </p>
+    <p><tt>#include &lt;stdio.h&gt;<br>
+        #include &lt;stdlib.h&gt;<br>
+      </tt> <tt>void printMyArray(int *a, int n);</tt><br>
+      <tt>int main() {</tt><br>
+      <tt>&nbsp; int const LIMIT = 5;</tt><br>
+      <tt>&nbsp; int *nums = (int*)malloc(LIMIT*sizeof(int));</tt><br>
+      <tt>&nbsp; int i;</tt><br>
+      <tt>&nbsp; for(i=0; i&lt;LIMIT; i++) {</tt><br>
+      <tt>&nbsp;&nbsp;&nbsp; nums[i] = i * 11;</tt><br>
+      <tt>&nbsp; }</tt><br>
+      <tt>&nbsp; printMyArray(nums,LIMIT);</tt><br>
+      <tt>&nbsp; return 0;</tt><br>
+      <tt>}</tt><br>
+      <tt>void printMyArray(int *a, int n) {</tt><br>
+      <tt>&nbsp; int i;</tt><br>
+      <tt>&nbsp; for(i=0; i&lt;n; i++) printf("%d\n",a[i]);</tt><br>
+      <tt>}</tt><br>
+    </p>
+    <p>Notice that the 5th line of the original code is the only line
+      that changes. But, because the<tt> malloc() </tt>function is made
+      available through the<tt> stdlib.h </tt>header file, we also
+      needed to add another <i>#include</i> line.<br>
+    </p>
+    <p>Also notice the use of the<tt> sizeof() </tt>operator. We use
+      this to make the line of code flexible enough to run on all
+      machines - remember that the size of an <tt>int</tt> can vary
+      from machine to machine. <i>sizeof()</i> will return an integer
+      indicating the number of bytes associated with whatever is passed
+      as an argument. <br>
+    </p>
+    <p>Here is a memory map model representing the identifiers and
+      memory of the above C program:<br>
+    </p>
+    <img src="2024-COSC315Lab1_files/Lab1-HeapArray.png" alt="Fig 2 - Heap Memory" width="347" height="534" border="2"><br>
+    <br>
+    Compare this diagram with the diagram of the original code:<br>
+    <ul>
+      <li>Notice that <u>all the variables that are declared in a
+          function are located on the Stack</u>, including <tt>nums</tt>.</li>
+      <li>The data associated with the <tt>nums</tt> array (i.e. <tt>nums[0]</tt>,
+        <tt>nums[1]</tt>, <tt>nums[2]</tt>, <tt>nums[3]</tt>, <tt>nums[4]</tt>)
+        is in the Heap area.</li>
+    </ul>
+    <ul>
+    </ul>
+    Local variables being located on the Stack is not unique to C. It is
+    true for Java also. In fact, the above diagram fairly closely models
+    what memory looks like for the Java array that we talked about
+    earlier.<br>
+    <p><b>Memory Leaks</b><br>
+    </p>
+    <p>Generally, when you use<tt> malloc() </tt>in a function, you
+      need to make sure that you give the memory back to the system when
+      it is no longer being used. For example, consider these two lines
+      of code:<br>
+    </p>
+    <p><tt>&nbsp; int x = 7;<br>
+        &nbsp; int *p = (int*)malloc(20);</tt><br>
+      <tt>&nbsp; p = &amp;x;</tt><br>
+    </p>
+    <p>The second line allocates 20 bytes from the Heap and has <tt>p</tt>
+      point to its location. The next line has the same variable <tt>p</tt>
+      point to a different location. At that point, the program no
+      longer knows where the location of the 20 bytes of Heap memory is.
+      The only thing that stored its location (<tt>p</tt>) has been
+      overwritten in the third line. That 20 bytes is now lost and we
+      have no way of finding it. Imagine if that code was in a loop that
+      could cycle 100s of thousands of times - the program would run
+      fine for a while but every time the loop cycled, 20 bytes more
+      would be lost, and after a while we might run low on memory or
+      even run out of memory. This situation is called a <i><b>memory
+          leak</b></i> and is very bad because it is an error that can
+      be difficult to detect through user testing.<br>
+    </p>
+    <p>How do we give back memory allocated through the Heap? Answer:
+      use the <i>free()</i> function. To fix the above situation, we
+      would just do this:<br>
+    </p>
+    <p><tt>&nbsp; int x = 7;<br>
+        &nbsp; int *p = (int*)malloc(20);<br>
+        &nbsp; free(p);<br>
+      </tt> <tt>&nbsp; p = &amp;x;</tt></p>
+    <p>You just need to pass the address of the memory allocated through
+      the Heap into the<tt> free() </tt>function. The<tt> free() </tt>function
+
+
+
+
+
+
+
+
+
+
+
+
+
+      gives that memory back to the system ready to be reused. However,
+      we should only use<tt> free() </tt>if we are sure that we no
+      longer need the data in that block of memory again.<br>
+    </p>
+    <p>The fact that we didn't use<tt> free() </tt>in our program was
+      not an issue because we are using<tt> malloc() </tt>in the<tt>
+        main() </tt>function. And, we know that when<tt> main() </tt>ends
+
+
+
+
+
+
+
+      our program ends and all the memory the program used goes back to
+      the system.<br>
+      <br>
+    </p>
+    <p><i><b>Dynamically Allocated Memory</b></i><br>
+    </p>
+    <p>Allocating memory from the Heap allows a program to allocate
+      memory at run time rather than at the time of compilation. For
+      example, if my program needs an array, but I don't know the size
+      of the array when I'm writing the code because it depends on
+      something that happens as the program runs, I can do this:<br>
+    </p>
+    <p><tt>&nbsp;&nbsp;&nbsp; int *a = (int*)malloc(X*sizeof(int));</tt><br>
+    </p>
+    <p>where <tt>X</tt> will indicate the number of elements needed in
+      the array. If <tt>X</tt> equals 10 at the time this statement
+      executes, the array will be of size 10 and if <tt>X</tt> is
+      1000000 at the time, the array will be that size. In other words,
+      the array is being sized <i>dynamically</i>. Because of this
+      dynamic nature of Heap allocated data we often refer to Heap
+      allocated memory as <i>Dynamically Allocated Memory</i>. I will
+      use this term most of the time.<br>
+    </p>
+    <br>
+    <font size="+1"><b>C-Style Strings</b></font><br>
+    <br>
+    Unlike object-oriented languages such as Java, VB and C++, C does
+    not have a string class (in fact C doesn't have any classes).
+    Strings are handled in C by simply using an array of <tt>char</tt>s
+    with one minor twist - the array needs to be "<i>null-terminated</i>."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    This means that the last character in the array of <tt>char</tt>s
+    needs to be the '\0' character (i.e. the <i>NULL</i> character).
+    Consider the following program:<br>
+    <blockquote><tt>#include &lt;stdio.h&gt;</tt><br>
+      <tt>void printMyArray(char *a, int n);</tt><br>
+      <tt>int main() {</tt><br>
+      <tt>&nbsp; char name[8];</tt><br>
+      <tt>&nbsp; name[0] = 'B';</tt><br>
+      <tt>&nbsp; name[1] = 'o';</tt><br>
+      <tt>&nbsp; name[2] = 'b';</tt><br>
+      <tt>&nbsp; name[3] = '\0';</tt><br>
+      <tt>&nbsp; name[4] = 'W';</tt><br>
+      <tt>&nbsp; name[5] = 'X';</tt><br>
+      <tt>&nbsp; name[6] = 'Y';</tt><br>
+      <tt>&nbsp; name[7] = 'Z';</tt><br>
+      <br>
+      <tt>&nbsp; printf("The value of name is: %s\n", name);</tt><br>
+      <tt>&nbsp; printMyArray(name,8);</tt><br>
+      <tt>&nbsp; return 0;</tt><br>
+      <tt>}</tt><br>
+      <tt>void printMyArray(char *a, int n) {</tt><br>
+      <tt>&nbsp; int i;</tt><br>
+      <tt>&nbsp; for(i=0; i&lt;n; i++) printf("%c\n",a[i]);</tt><br>
+      <tt>}</tt><br>
+    </blockquote>
+    Here we declare an 8-element char array with the line "<tt>char
+      name[8];</tt>". Remember that this line associates a contiguous
+    block of memory for the array (on the Stack). Even though we haven't
+    assigned values to it, remember that the memory locations contain
+    some values and we have no idea what those values might be. Next, we
+    put the string "Bob" into the array one character at a time. Notice
+    that we put a NULL character at index 3. The NULL character lets C
+    library functions know where the string ends. These functions would
+    know that the string should be considered the sequence of characters
+    from index 0 to 2. We assigned values to indexes 4 to 7 (W, X, Y,
+    and Z) just so we know that the values would be printable characters
+    for this example.<br>
+    <br>
+    Compile and run this program. You will see the following output:<br>
+    <blockquote><tt>The value of name is: Bob</tt><br>
+      <tt>B</tt><br>
+      <tt>o</tt><br>
+      <tt>b</tt><br>
+      <br>
+      <tt>W</tt><br>
+      <tt>X</tt><br>
+      <tt>Y</tt><br>
+      <tt>Z</tt><br>
+    </blockquote>
+    The first line is generated by the printf() function and it displays
+    the C-style string as we built it. The remaining output comes from
+    our function that prints the contents of the array. This
+    demonstrates that C library functions (such as <tt>printf()</tt>)
+    that manipulate strings will use the NULL character to know where
+    the end of the string is.<br>
+    <br>
+    Creating strings as we did in the above example is obviously far too
+    cumbersome, so C provides extra syntax so that we can use the usual
+    string literals in assignments. The above example would be more
+    concisely written as follows:<br>
+    <blockquote><tt>#include &lt;stdio.h&gt;</tt><br>
+      <tt>void printMyArray(char *a, int n);</tt><br>
+      <tt>int main() {</tt><br>
+      <tt>&nbsp; char name[8] = "Bob";</tt><br>
+      <br>
+      <tt>&nbsp; printf("The value of name is: %s\n", name);</tt><br>
+      <tt>&nbsp; printMyArray(name,8);</tt><br>
+      <tt>&nbsp; return 0;</tt><br>
+      <tt>}</tt><br>
+      <tt>void printMyArray(char *a, int n) {</tt><br>
+      <tt>&nbsp; int i;</tt><br>
+      <tt>&nbsp; for(i=0; i&lt;n; i++) printf("%c\n",a[i]);</tt><br>
+      <tt>}</tt><br>
+    </blockquote>
+    The line "<tt>char name[8] = "Bob";</tt>"&nbsp; does the work of
+    assigning 'B', 'o', 'b', and '\0' to the first four elements of the
+    array. It does not bother assigning values to the other elements, so
+    the values of elements 4 to 7 would remain unknown.<br>
+    <br>
+    Exercise Two will give you practice manipulating C-Style strings and
+    using C library function for string manipulation. <br>
+    <br>
+    <p> </p>
+    <hr>
+    <p><big><span style="font-weight: bold;">C Programming Exercises</span></big><br>
+    </p>
+    <p>You will complete three C programming exercises. For each C
+      program you create, store your program in a separate file (e.g. <tt>lab1ex1.c</tt>,
+      <tt>lab1ex2.c</tt>, and <tt>lab1ex3.c</tt>).&nbsp;The file name
+      to use is specified for each exercise. Incorrectly named files
+      will not be graded and will receive a mark of 0.<br>
+    </p>
+    <p><u><b>You must only use syntax and C functions that have been
+          covered during lecture and this lab. </b></u><u><b><br>
+        </b></u><br>
+    </p>
+    <span style="font-weight: bold;">Exercise One</span> (<tt style="font-weight: bold;">lab1ex1.c</tt>) <br>
+    <br>
+    Write a program to read a sequence of numbers from the user, until
+    the sentinel value <tt>-1</tt> is entered and then output the <i>maximum</i>,
+    <i> minimum</i>, <i>sum</i>, <i>average</i> and <i>median</i> of
+    the numbers. Your program should run <u><b>EXACTLY</b></u> as shown
+    in the two sample runs shown below:
+    <pre>$ <span style="font-weight: bold;">a.out</span><br>Please enter your first name: <b>Rosalyn</b><br>Rosalyn, enter a positive integer (or -1 to quit): <b>44</b><br>Rosalyn, enter a positive integer (or -1 to quit): <b>55</b><br>Rosalyn, enter a positive integer (or -1 to quit): <b>77</b><br>Rosalyn, enter a positive integer (or -1 to quit): <b>-1</b><br>The maximum is:       77.00<br>The minimum is:       44<br>The average is:       58.667<br>The sum is:          176<br>The median is: 55.0<br>$<br>$ <span style="font-weight: bold;">a.out</span><br>Please enter your first name: <b>Agnes</b><br>Agnes, enter a positive integer (or -1 to quit): <b>44</b><br>Agnes, enter a positive integer (or -1 to quit): <b>55</b><br>Agnes, enter a positive integer (or -1 to quit): <b>76</b><br>Agnes, enter a positive integer (or -1 to quit): <b>89</b><br>Agnes, enter a positive integer (or -1 to quit): <b>100</b><br>Agnes, enter a positive integer (or -1 to quit): <b>111</b><br>Agnes, enter a positive integer (or -1 to quit): <b>-1</b><br>The maximum is:      111.00<br>The minimum is:       44<br>The average is:       79.167<br>The sum is:          475<br>The median is: 82.5<br>$<br><br></pre>
+    Notes:<br>
+    <ul>
+      <li>Use the <tt>scanf</tt> function to read values from the
+        keyboard (<a href="http://www.cplusplus.com/reference/cstdio/scanf/">scanf</a>).
+
+
+
+
+
+
+
+
+
+
+
+        <br>
+        <br>
+      </li>
+      <li>An <tt>int</tt> divided by an <tt>int</tt> results in an <tt>int</tt>
+        (i.e. integer division) -- use "casting" before dividing when
+        calculating the average just like you do in Java.<br>
+        <br>
+      </li>
+      <li>The output is presented with different alignments and decimal
+        places on purpose so that you will be forced to use the various
+        format specifiers of the <tt>printf()</tt> function. You should
+        use format specifiers to adjust the appearance of the output to
+        look <u><b>identical</b></u> to the output above. <b><u>Do not
+            use tabs or multiple sequences of spaces</u></b>.<br>
+        <br>
+      </li>
+      <li>The <i>median</i> value in a list of sorted numbers is the
+        middle number. If there is no middle number (because the list
+        contains an even number of numbers), then the median is the
+        average of the two numbers in the middle of the list. For
+        example, consider the list 5, 6, 7, 8, 9. The median number is
+        7. But in the list 2, 3, 4, 5, 6, 7, the median value is 4.5
+        (which is the average of the two middle numbers: 4 and 5).<br>
+        <br>
+      </li>
+      <li>You will need to use an array to find the median as you will
+        need to sort the user's numbers. Use the <b>sortInt()</b>
+        function included in the code below. This function calls upon
+        the <b>qsort</b> function (included in <b>stdlib.h</b>). The
+        qsort functions is an implementation of the QuickSort algorithm.
+        To use qsort, you must provide the array (<b>a</b>), the size of
+        the array (<b>n</b>), the size of the elements of the array (<b>sizeof(int)</b>)
+        and a pointer to the comparator function, which is used to
+        compare elements of the array. You will be familiar with the
+        notion of a comparator function from COSC222. The int comparator
+        function (<b>intComp</b>) is also provided for you. So, include
+        these lines of code at the bottom of your solution file:<br>
+        <br>
+        <span style="font-family: monospace;">int intComp (int* a, int*
+          b) {return (*a - *b);}<br>
+          void sortInt(int* a, int n) {<br>
+          &nbsp;&nbsp; qsort(a, n, sizeof(int), (void*)intComp);<br>
+          } <br>
+        </span></li>
+    </ul>
+    <blockquote>Remember that you will need to include a prototype for <b>sortInt()</b>
+      before your <b>main()</b> function.<br>
+    </blockquote>
+    <br>
+    <span style="font-weight: bold;">Exercise Two </span>(<tt style="font-weight: bold;">lab1ex2.c</tt>) <br>
+    <br>
+    <div style="margin-left: 40px;">The purpose of this exercise and the
+      next is to give you practice using and manipulating C-style
+      strings. You will practice using the following functions (part of
+      <span style="font-family: monospace;">string.h</span> or <span style="font-family: monospace;">stdio.h</span> - include both):
+      <ul>
+        <li><a href="http://www.cplusplus.com/reference/cstring/strcat/"><tt>strcat()</tt></a>
+          - used to concatenate two strings.</li>
+        <li><a href="http://www.cplusplus.com/reference/cstring/strcpy/"><tt>strcpy()</tt></a>
+          - used to copy one string into another.</li>
+        <li><a href="http://www.cplusplus.com/reference/cstring/strlen/"><tt>strlen()</tt></a>
+          - used to determine the number of characters in a string.
+          Remember that this does not include the terminating null
+          character.</li>
+        <li><a href="http://www.cplusplus.com/reference/cstdio/sprintf/"><tt>sprintf()</tt></a>
+          - used to perform a formatted print (like <tt>printf()</tt>)
+          where the target of the print is a C string instead of
+          standard output.</li>
+        <li><a href="http://www.cplusplus.com/reference/cstdio/scanf/"><tt>scanf()</tt></a>
+          - used to read input from standard input.<br>
+        </li>
+      </ul>
+      Write a function called <span style="font-family: monospace;">userData()</span>
+      (in a file called <span style="font-family: monospace;">lab1ex2.c</span>
+      ) which does the following:<br>
+      <ul>
+        <li>Prompts the user for their first name and then their last
+          name. Each should be read into variables declared on the
+          stack. You may assume that neither name will exceed 30
+          characters in length, so a full name cannot exceed 61
+          characters in length when the space is added in. <br>
+          <br>
+        </li>
+        <li>Prompts the user for their lucky number less than 500, and
+          reads the number the user specifies.<br>
+          <br>
+        </li>
+        <li>Stores the person's full name in a string that is returned
+          from the function.<br>
+          <br>
+        </li>
+        <li>Creates a username on the Heap for the person. The username
+          is constructed by taking the person's first name initial
+          followed by their last name followed by a 3-digit number which
+          is 1000 minus their lucky number. For example, my name is Alan
+          Kennedy and my favorite number is 124, so my username would be
+          <i>AKennedy876</i>. You will find the sprintf() function
+          particularly helpful for constructing the username.<br>
+          <br>
+          The calling function (main()) will be able to access this
+          username because it passes in the address of the variable that
+          userData() is suppose to use to store the username. <br>
+        </li>
+      </ul>
+      Here is the <span style="font-family: monospace;">userData()</span>
+      function prototype:<br>
+      <br>
+      <div style="margin-left: 40px;"><span style="font-family:
+          monospace;">char* userData(int *lnum, </span><span style="font-family: monospace;"><span style="font-family:
+            monospace;">char** fname</span>);</span><br>
+      </div>
+      <br>
+      Here, <span style="font-family: monospace;">uname</span> is used
+      as a means to return the user's username to the calling function.
+      Notice that it is declared as a pointer to a C-style string. That
+      way, the userData() function will know where to put the username
+      it creates.<br>
+      <br>
+      To test your function, include the following <span style="font-family: monospace;">main()</span> function code in
+      your <span style="font-family: monospace;">lab1ex2.c</span> file.
+      If you modify the <tt>main</tt> function at all, <u><b>be sure
+          to return it to exactly this state before submitting it</b></u>.<br>
+      <br>
+      <span style="font-family: monospace;">int main() {<br>
+        &nbsp; char* fullname;<br>
+        &nbsp; char* username;<br>
+        &nbsp; int&nbsp;&nbsp; luckyNum;<br>
+        &nbsp; username = userData(&amp;luckyNum, &amp;fullname);<br>
+        &nbsp; printf("%s's username is %s\n", fullname, username);<br>
+        &nbsp; printf("%s's lucky number is %d.\n", fullname, luckyNum);<br>
+        <br>
+        &nbsp; return 0;<br>
+        }</span><span style="font-family: monospace;"></span><span style="font-family: monospace;"></span><br>
+      <br>
+      Here is how this program should run (what the user types is shown
+      in <span style="font-weight: bold;">bold</span>):<br>
+      <br>
+      <span style="font-family: monospace;">$ <b>a.out</b><br>
+        Please enter your first and last name: <b>Goncalo Ramos</b><br>
+        Goncalo Ramos, please enter your lucky number (&lt;500): <b>123</b><br>
+        Goncalo Ramos's username is GRamos877<br>
+        Goncalo Ramos's lucky number is 123.<br>
+        $</span><br>
+      <br>
+      <b>Remember</b>: You must make sure that you are mindful of Stack
+      memory versus Heap memory. Remember that when a function returns,
+      any Stack memory that it used is eligible to be reused by your
+      program. So it may be overwritten at any time.<br>
+      <br>
+      <u><b>Important: The main() function of your lab1ex2.c file must
+          be exactly the main() function specified above.</b></u> <br>
+      <br>
+      <br>
+    </div>
+    <span style="font-weight: bold;">Exercise Three </span>(<tt style="font-weight: bold;">lab1ex3.c</tt>) <br>
+    <br>
+    Write a function modified version of the <span style="font-family:
+      monospace;">userDataTwo()</span> function (in a file called <span style="font-family: monospace;">lab1ex3.c</span> ) which does the
+    following:<br>
+    <ul>
+      <li>It should do everything that your userData() function did in
+        the last exercise.<br>
+        <br>
+      </li>
+      <li>It should prompt the user for a list of 3 friends names, and
+        return that list of friends through a 3rd formal parameter
+        called <b>friends</b>. The calling function (<b>main()</b>)
+        will be able to use this list as an array of C-Style strings.<br>
+      </li>
+    </ul>
+    Here is the <span style="font-family: monospace;">userDataTwo()</span>
+    function prototype:<br>
+    <br>
+    <div style="margin-left: 40px;"><span style="font-family:
+        monospace;">char* userData(int *lnum, </span><span style="font-family: monospace;"><span style="font-family:
+          monospace;">char** uname, char*** friends</span>);</span><br>
+    </div>
+    <br>
+    To test your function, include the following <span style="font-family: monospace;">main()</span> function code in
+    your <span style="font-family: monospace;">lab1ex2.c</span> file.
+    If you modify the <tt>main</tt> function at all, <u><b>be sure to
+        return it to exactly this state before submitting it</b></u>.<br>
+    <br>
+    <span style="font-family: monospace;">int main() {<br>
+      &nbsp; char* fullname;<br>
+      &nbsp; char* username;<br>
+      &nbsp; char** friends;<br>
+      &nbsp; int&nbsp;&nbsp; luckyNum;<br>
+      &nbsp; username = userData(&amp;luckyNum, &amp;fullname,
+      &amp;friends);<br>
+      &nbsp; printf("%s's username is %s\n", fullname, username);<br>
+      &nbsp; printf("%s's lucky number is %d.\n", fullname, luckyNum);<br>
+      &nbsp; printf("Friends list: %s, %s and %s\n", friends[0],
+      friends[1], friends[2]);<br>
+      <br>
+      &nbsp; return 0;</span><span style="font-family: monospace;"></span><br style="font-family: monospace;">
+    <span style="font-family: monospace;">}</span><br>
+    <br>
+    Here is how this program should run (what the user types is shown in
+    <span style="font-weight: bold;">bold</span>):<br>
+    <br>
+    <span style="font-family: monospace;">$ <b>a.out</b><br>
+      Please enter your first and last name: <b>Grace Hopper</b><br>
+      Grace Hopper, please enter your lucky number (&lt;500): <b>248</b><br>
+      Please enter the name (one word) of friend 1: <b>Margaret</b><br>
+      Please enter the name (one word) of friend 2: <b>Radia</b><br>
+      Please enter the name (one word) of friend 3: <b>Ada</b><br>
+      Grace Hopper's username is GHopper752<br>
+      Grace Hopper's lucky number is 248.<br>
+      Friends list: Margaret, Radia and Ada<br>
+      $</span><br>
+    <br>
+    <b>Remember</b>: You must make sure that you are mindful of Stack
+    memory versus Heap memory. Remember that when a function returns,
+    any Stack memory that it used is eligible to be reused by your
+    program. So it may be overwritten at any time.<br>
+    <br>
+    <u><b>Important: The main() function of your lab1ex3.c file must be
+        exactly the main() function specified above.<br>
+        <br>
+      </b></u> <b>Submitting your work:</b><b><br>
+    </b><b><br>
+    </b>In this course, you will electronically submit your work using a
+    UNIX script named "<tt>submitak</tt>". The script makes a copy of
+    your completed file in my file space. But first, you must have the
+    script in your own file space. Do the following to get the script:
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>oksun7</tt>$ cp ~akennedy/submitak ~<br></pre>
+    This command says "copy the file <tt>submitak</tt> from <tt>akennedy</tt>'s
+home
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    directory to my home directory". Note the use of the <i>tilde</i> (<tt>~</tt>)
+    character which UNIX uses to indicate the home directory of the
+    user.
+    <p>Once you've got the <tt>submitak</tt> script, you will use it
+      throughout the semester to send me your completed work. You don't
+      have to copy it again (unless you accidentally delete it). To
+      submit your files, do this:<br>
+    </p>
+    <p style="margin-left: 40px;"><span style="font-family: monospace;"><tt>oksun7</tt>$
+        <span style="font-weight: bold;">submitak lab1ex1.c </span></span><span style="font-family: monospace;"><span style="font-weight: bold;"><span style="font-family: monospace;"><span style="font-weight:
+              bold;">lab1ex2.c </span></span></span></span><span style="font-family: monospace;"><span style="font-weight: bold;"><span style="font-family: monospace;"><span style="font-weight:
+              bold;"><span style="font-family: monospace;"><span style="font-weight: bold;">lab1ex3.c</span></span></span></span></span></span>
+    </p>
+    If you submit a file and later realize that you'd like to submit a
+    newer (improved) version, simply submit it again. The new copy will
+    overwrite the old copy in my file space. You can do this up until
+    the due time.<br>
+    <p>If you want to check to see what files you have submitted, do
+      this: </p>
+    <pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <tt>oksun7</tt>$ ls ~akennedy/student/<i>yourUserName</i></pre>
+    Each of you has an individual directory in my file space. Only you
+    and I have access to that directory.
+    <p>Shortly after the due date and time, I will run another UNIX
+      script which will collect and run your work. Make sure you have
+      submitted your work prior to the due date and time. If you make
+      improvements after the due date and time, they will not be
+      included in the marking of your assignment.<br>
+      <br>
+    </p>
+  
+
+</body></html>

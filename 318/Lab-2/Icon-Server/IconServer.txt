@@ -1,0 +1,69 @@
+import java.net.*;
+import java.io.*;
+
+public class IconServer {
+    public static final int PORT = 4444;
+
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = null;
+        boolean listening = true;
+
+        try {
+            serverSocket = new ServerSocket(PORT);
+            System.out.println("Icon Server started on port " + PORT);
+            
+            while (listening) {
+                new IconServerThread(serverSocket.accept()).start();
+            }
+        } catch (IOException e) {
+            System.err.println("Could not listen on port: " + PORT);
+            System.exit(-1);
+        } finally {
+            if (serverSocket != null) {
+                serverSocket.close();
+            }
+        }
+    }
+}
+
+class IconServerThread extends Thread {
+    private Socket socket = null;
+
+    public IconServerThread(Socket socket) {
+        super("IconServerThread");
+        this.socket = socket;
+    }
+
+    public void run() {
+        try {
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
+            OutputStream out = socket.getOutputStream();
+
+            String inputLine = in.readLine();
+            if (inputLine != null) {
+                String filename = "bug" + inputLine + ".gif";
+                File file = new File(filename);
+                
+                // Send file size first
+                long fileLength = file.length();
+                DataOutputStream dos = new DataOutputStream(out);
+                dos.writeLong(fileLength);
+                
+                // Send file content
+                FileInputStream fis = new FileInputStream(file);
+                byte[] buffer = new byte[4096];
+                int count;
+                while ((count = fis.read(buffer)) > 0) {
+                    out.write(buffer, 0, count);
+                }
+                fis.close();
+                out.flush();
+            }
+
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

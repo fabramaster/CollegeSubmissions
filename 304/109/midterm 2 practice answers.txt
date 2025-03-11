@@ -1,0 +1,17 @@
+f x e head 
+e
+f
+b
+d
+a x comm
+f
+f 
+d
+d x a  cat foo | wc
+b x c echo f??
+c x b ls -d [!AB]*
+b,c,d
+a x e abbbcd
+a
+f
+d

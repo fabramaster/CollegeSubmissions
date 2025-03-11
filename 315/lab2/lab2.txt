@@ -1,0 +1,141 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+int main() {
+    printf("Before system call\n");
+    system("ls");  // replace "ls" with any command you want to test
+    printf("After system call\n");
+    return 0;
+}
+
+In C, the system() function does not overwrite the original process. Instead, it creates a child process where the command is executed,
+and the original (parent) process waits until the child process finishes.
+
+
+
+2) 
+#include <unistd.h>
+#include <stdio.h>
+
+int main() {
+    printf("Before execl call\n");
+    execl("/bin/ls", "ls", (char *)NULL);
+    printf("After execl call\n");
+    return 0;
+}
+
+the execl() function overwrites the original process. It replaces the current process with a new process.
+This means that once execl() is called, the lines of code following it are not executed unless execl() fails.
+
+3)
+
+
+    If you remove the call to fflush, the output “Before fork” might be buffered. When fork() is called, the child process inherits this buffer, so it might print “Before fork” as well. This can result in two copies of “Before fork” appearing in the output.
+    If you redirect the output to a file using >, the behavior should be the same. The only difference is that the output will be written to a file instead of being printed to the terminal.
+
+4)
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    pid_t pid = fork();
+
+    if (pid < 0) {
+        // Fork failed
+        printf("Fork failed.\n");
+        return 1;
+    }
+
+    if (pid == 0) {
+        // Child process
+        printf("Child:\n");
+        printf("PID: %d\n", getpid());
+        printf("Parent PID: %d\n", getppid());
+        printf("Child PID: N/A\n");
+    } else {
+        // Parent process
+        printf("Parent:\n");
+        printf("PID: %d\n", getpid());
+        printf("Parent PID: %d\n", getppid());
+        printf("Child PID: %d\n", pid);
+    }
+
+    return 0;
+}
+
+5)
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    int pipefd[2];
+    if (pipe(pipefd) == -1) {
+        perror("pipe");
+        return 1;
+    }
+
+    printf("The file descriptors are %d and %d\n", pipefd[0], pipefd[1]);
+
+    return 0;
+}
+
+6)
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+int main() {
+    int p[2], q[2];
+    char message[100];
+    pid_t pid;
+
+    // Create two pipes
+    pipe(p);
+    pipe(q);
+
+    pid = fork();
+
+    if (pid == 0) { // Child
+        close(p[0]);
+        close(q[1]);
+
+        //parent
+        write(p[1], "Dad, what is for dinner?", 24);
+        close(p[1]);
+
+        //parent
+        read(q[0], message, sizeof(message));
+        printf("Child received: %s\n", message);
+
+        //parent
+        write(p[1], "I will be right there!!", 23);
+        close(p[1]);
+    } else { //Parent
+        close(p[1]);
+        close(q[0]);
+
+        //child
+        read(p[0], message, sizeof(message));
+        printf("Parent received: %s\n", message);
+
+        //child
+        write(q[1], "Pepperoni pizza and garlic bread.", 33);
+        close(q[1]);
+
+        //child
+        read(p[0], message, sizeof(message));
+        printf("Parent received: %s\n", message);
+    }
+
+    return 0;
+}
+
+7)
+x = 2024,  Address of x = 0x7ffc7c490f2c
+
+In child:  x = 9876,  Address of x = 0x7ffc7c490f2c
+The child process is ending.
+
+In parent: x = 2024,  Address of x = 0x7ffc7c490f2c
+The parent process is ending.
+

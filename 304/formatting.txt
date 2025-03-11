@@ -1,0 +1,39 @@
+col Type format A5
+
+col TABLE_NAME format A12
+
+col SEPTEMBER format 9999
+
+col OCTOBER format 9999
+
+col NOVEMBER format 9999
+
+col NAME format A38
+
+col ORDER_VALUE format A15
+
+col ORDER_DATE format A14
+
+col ORDER_TIME format A11
+
+col WAREHOUSE_LOCATION format A20
+
+col ORDERED_ON format A34
+
+col PRODUCT_ID format 999
+
+col PENDING format A13
+
+col COMPLETED format A13
+
+col ALL_ORDERS format A15
+
+col BSC_STUDENT_SUMMARY format a40
+
+col text format A105
+
+set linesize 105
+
+set long 4000
+
+set pages 20000

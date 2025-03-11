@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* userData(int *lnum, char** fname) {
+    char firstName[31], lastName[31];
+    int luckyNum;
+    char* username;
+
+    printf("Please enter your first and last name: ");
+    scanf("%s %s", firstName, lastName);
+
+    printf("%s %s, please enter your lucky number (<500): ", firstName, lastName);
+    scanf("%d", &luckyNum);
+
+    *lnum = luckyNum;
+
+    *fname = (char*) malloc(62 * sizeof(char));
+    strcpy(*fname, firstName);
+    strcat(*fname, " ");
+    strcat(*fname, lastName);
+
+    username = (char*) malloc(35 * sizeof(char));
+    sprintf(username, "%c%s%d", firstName[0], lastName, 1000 - luckyNum);
+
+    return username;
+}
+
+int main() {
+    char* fullname;
+    char* username;
+    int   luckyNum;
+
+    username = userData(&luckyNum, &fullname);
+
+    printf("%s's username is %s\n", fullname, username);
+    printf("%s's lucky number is %d.\n", fullname, luckyNum);
+
+    free(fullname);
+    free(username);
+
+    return 0;
+}

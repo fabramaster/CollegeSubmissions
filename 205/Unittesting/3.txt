@@ -1,0 +1,18 @@
+package testing;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class GradeCalculatorTest {
+    @Test
+    public void testCalculateLetterGrade() {
+        assertThrows(Exception.class, () -> GradeCalculator.calculateLetterGrade(101));
+        assertThrows(Exception.class, () -> GradeCalculator.calculateLetterGrade(-1));
+        assertEquals("A", GradeCalculator.calculateLetterGrade(90));
+        assertEquals("B", GradeCalculator.calculateLetterGrade(80));
+        assertEquals("C", GradeCalculator.calculateLetterGrade(70));
+        assertEquals("D", GradeCalculator.calculateLetterGrade(60));
+        assertEquals("F", GradeCalculator.calculateLetterGrade(50));
+    }
+}
+

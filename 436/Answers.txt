@@ -1,0 +1,26 @@
+1:normalization
+a: Reduced redundancy: normalization reduces redundant data by organizing into tables and the relationships between them. employees references storeID from stores table, this avoids storing storeID multiple times
+b: normalization makes sure that data is stored consistenly. Products references BrandID from brands table, this associates each product wiath a valid brand. 
+c: easy to maintain. Its easy to maintan if normalized properly
+
+2: self-service
+a:
+customer scans a product and adds it to cart
+SELECT ProductID, ProductName, Price 
+FROM Products 
+WHERE Barcode = '1234567890123';
+
+3:
+Restocking Products in a Warehouse When products are restocked in a warehouse
+INSERT INTO Restocking (RestockingID, ProductID, SupplierID, WarehouseID) 
+VALUES (1, 101, 201, 301);
+
+Assigning a Manager to a Store When a manager is assigned to a store
+INSERT INTO Managers (ManagerID, EmployeeID, StoreID) 
+VALUES (1, 1001, 1);
+
+4:
+the database design avoids large join's by ensuring each table is normalized and defined with foreign keys. this allow querys to be efficient and reduces need for complex join operations
+
+5:
+this database is suitable for data analysis as its higly normalized.  highly normalized databases might require many join's for complicated queries which can affect performance. denormalized tables are somewaht more efficient

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Triangular Number Calculator</title>
+    <style>
+        #content {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<div id="content">
+</div>
+<script>
+    window.addEventListener("load", function() {
+        var myNumber = *NUM*;
+        var port = *PORT*;
+        
+        // Create and send AJAX request
+        fetch(`http://127.0.0.1:${port}?number=${myNumber}`)
+            .then(response => response.json())
+            .then(data => {
+                const content = document.getElementById('content');
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'result';
+                resultDiv.innerHTML = `
+                    <p>Result from service on port ${port}:</p>
+                    <p>Triangle number for ${data.input} is: ${data.result}</p>
+                `;
+                content.appendChild(resultDiv);
+            })
+            .catch(error => {
+                const content = document.getElementById('content');
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'result';
+                errorDiv.style.backgroundColor = '#ffe6e6';
+                errorDiv.innerHTML = `
+                    <p>Error connecting to service on port ${port}:</p>
+                    <p>${error.message}</p>
+                `;
+                content.appendChild(errorDiv);
+            });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+class Lab5 {
+    static class Parameters {
+        double a, b, c, d, e;
+    }
+
+    static class Thread1 implements Runnable {
+        Parameters p;
+        Double result;
+
+        Thread1(Parameters p) {
+            this.p = p;
+        }
+
+        @Override
+        public void run() {
+            try {
+                double t1 = 3 * p.c;
+                Thread.sleep(1000);
+                double t2 = t1 / 2;
+                Thread.sleep(1000);
+                result = p.b + t2;
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    static class Thread2 implements Runnable {
+        Parameters p;
+        Double result;
+
+        Thread2(Parameters p) {
+            this.p = p;
+        }
+
+        @Override
+        public void run() {
+            try {
+                double t5 = p.b + 1;
+                Thread.sleep(1000);
+                double t6 = Math.pow(p.d, t5);
+                Thread.sleep(1000);
+                double t4 = p.e + 6;
+                Thread.sleep(1000);
+                result = t6 / t4;
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        if (args.length != 5) {
+            System.out.println("Usage: java Lab5 a b c d e");
+            System.exit(1);
+        }
+
+        double ans, t8, t9;
+        Parameters p = new Parameters();
+
+        p.a = Double.parseDouble(args[0]);
+        p.b = Double.parseDouble(args[1]);
+        p.c = Double.parseDouble(args[2]);
+        p.d = Double.parseDouble(args[3]);
+        p.e = Double.parseDouble(args[4]);
+
+        Thread1 thread1 = new Thread1(p);
+        Thread thread1Obj = new Thread(thread1);
+        thread1Obj.start();
+
+        Thread2 thread2 = new Thread2(p);
+        Thread thread2Obj = new Thread(thread2);
+        thread2Obj.start();
+
+        try {
+            thread1Obj.join();
+            thread2Obj.join();
+
+            t8 = p.a + 1;
+            Thread.sleep(1000);
+            t9 = t8 * thread1.result;
+            Thread.sleep(1000);
+            ans = t9 + thread2.result;
+            Thread.sleep(1000);
+
+            System.out.printf("(%.1f + 1) * (%.1f + 3 * %.1f / 2) + (%.1f ^ (%.1f + 1)) / (%.1f + 6) = %.3f\n",
+                    p.a, p.b, p.c, p.d, p.b, p.e, ans);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}

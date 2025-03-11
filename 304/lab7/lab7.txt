@@ -1,0 +1,107 @@
+drop table l7_payroll;
+drop table l7_emp;
+drop table l7_position;
+drop table l7_dept;
+drop table l7_div;
+drop view  L7_PAYDAYS;
+
+CREATE TABLE L7_div (
+    DIVID CHAR(5) NOT NULL PRIMARY KEY, 
+    DIVNAME VARCHAR(100) NOT NUlL, 
+    CONSTRAINT L7_IC_DIVID CHECK (LENGTH(DIVID) = 5)
+);
+
+CREATE TABLE L7_dept (
+    DEPTID CHAR(4) NOT NULL PRIMARY KEY, 
+    DEPTNAME VARCHAR(100) NOT NUlL,
+    DIVID CHAR(5) NOT NULL,
+    CONSTRAINT L7_FK_DEPT_DIV FOREIGN KEY (DIVID) REFERENCES L7_div (DIVID),  
+    CONSTRAINT L7_IC_DEPTID CHECK (LENGTH(DEPTID) = 4)
+);
+
+CREATE TABLE L7_position (
+    POSITION VARCHAR(100) NOT NUlL PRIMARY KEY,
+    PAYRATE DECIMAL(8,2) NOT NULL
+);
+
+CREATE TABLE L7_emp (
+    EMPID INT NOT NULL PRIMARY KEY, 
+    EMPNAME VARCHAR(50) NOT NUlL,
+    POSITION VARCHAR(100) NOT NULL,
+    DEPTID CHAR(4) NOT NULL,
+    CONSTRAINT L7_FK_EMP_DEPT FOREIGN KEY (DEPTID) REFERENCES L7_dept (DEPTID),
+    CONSTRAINT L7_FK_EMP_POSITION FOREIGN KEY (POSITION) REFERENCES L7_position (POSITION)
+);
+
+
+CREATE TABLE L7_payrolls (
+    PAYDATE DATE, 
+    EMPID INT, 
+    DEPTID CHAR(4),
+    LEADERID INT, 
+    DIVID CHAR(5),
+    HOURS INT,
+    PRIMARY KEY (PAYDATE, EMPID),
+    CONSTRAINT L7_FK_PAYROLL_DIV FOREIGN KEY (DIVID) REFERENCES L7_div (DIVID),  
+    CONSTRAINT L7_FK_PAYROLL_DEPT FOREIGN KEY (DEPTID) REFERENCES L7_dept (DEPTID),
+    CONSTRAINT L7_FK_PAYROLL_EMP FOREIGN KEY (EMPID) REFERENCES L7_emp (EMPID)
+);
+
+INSERT INTO L7_div
+SELECT DISTINCT divid, min(divname) FROM LABDATA.payrolls GROUP BY divid
+;
+
+INSERT INTO L7_dept
+SELECT DISTINCT dept, deptname, divid FROM LABDATA.payrolls
+;
+
+INSERT INTO L7_position
+SELECT DISTINCT POSITION, PAYRATE FROM LABDATA.payrolls
+;
+
+INSERT INTO L7_emp
+SELECT DISTINCT
+	empid,
+	empname,
+   position,
+   deptID
+FROM LABDATA.payrolls
+;
+
+INSERT INTO L7_payrolls
+SELECT DISTINCT 
+	PAYDATE, EMPID, DEPTID, LEADER, DIVID, HOURS
+FROM LABDATA.payrolls
+;
+
+
+CREATE VIEW L7_PAYDAYS AS 
+SELECT 
+    PAYDATE,
+    prl.EMPID,
+    emp.empname,
+    emp.POSITION, -- PAYRATE,
+    prl.DEPTID AS DEPT,
+    DEPTNAME,
+    prl.LEADERID AS LEADER,
+    ldr.empname AS LEADER_NAME,
+    prl.DIVID,
+    DIVNAME,
+    HOURS,
+    ((HOURS - DECODE(floor(hours/80), 0, 0, (hours-80))) * payrate)
+    + (DECODE(floor(hours/80), 0, 0, (hours-80)) * payrate * 1.5) AS pay_amount
+FROM 
+    l7_payrolls prl,
+    l7_emp emp,
+    l7_emp ldr,
+    l7_position pos,
+    l7_dept dept,
+    l7_div dvn
+WHERE 
+    prl.EMPID = emp.EMPID
+    AND prl.LEADERID = ldr.EMPID
+    AND emp.position = pos.position
+    AND prl.DEPTID = dept.DEPTID
+    AND prl.DIVID = dvn.DIVID
+ORDER BY 
+    paydate, empid;

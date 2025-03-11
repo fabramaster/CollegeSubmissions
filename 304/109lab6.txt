@@ -1,0 +1,26 @@
+# Question 1
+grep -E '^js(a|e|o|d)' /etc/passwd
+
+# Question 2
+grep -i '^[[:alpha:]].*[XYxy]$' foo.txt | grep -iv '[0-9]'
+
+# Question 3
+grep -E '[1-9][0-9]{2}$' foo.txt
+
+# Question 4
+grep -E '^WARNING' foo.txt | grep -iv 'ERROR'
+
+# Question 5
+sed -n '/Mister/ s/Jonathan/Jon/gp' foo.txt
+
+# Question 6
+find . -type d -perm -g+rx -printf '%p\n' | sed 's|/[^/]*$||' | sort -u
+
+# Question 7
+sed '/^$/d' namesDraft > namesFinal
+
+# Question 8
+grep -E '^.{4,}.*Hi' foo.txt
+
+# Question 9
+ls -l | awk '$5 > 100 {print $9}'

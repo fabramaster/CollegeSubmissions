@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <math.h>
+
+int main(int argc, char argv[]) {
+    if (argc != 6) {
+        printf("Usage: %s a b c d e\n", argv[0]);
+        return 1;
+    }
+
+    double vals[5], t[10], result;
+    int p[2], q[2], r[2];
+    int bufsize = sizeof(double);
+
+    for (int i = 0; i < 5; i++)
+        vals[i] = atof(argv[i + 1]);
+
+    pipe(p);
+    pipe(q);
+    pipe(r);
+
+    if (!fork()) { // Child process
+        if (!fork()) { // Grandchild process
+            if (!fork()) { // Great-grandchild process
+                t[7] = vals[4] + 6;
+                sleep(1);
+                write(p[1], &t[7], bufsize);
+                return 0;
+            }
+            t[5] = vals[1] + 1; sleep(1);
+            t[6] = pow(vals[3], t[5]); sleep(1);
+            read(p[0], &t[7], bufsize);
+            t[9] = t[6] / t[7]; sleep(1);
+            write(q[1], &t[9], bufsize);
+            return 0;
+        }
+        t[2] = vals[2] / 2; sleep(1);
+        t[3] = 3 t[2]; sleep(1);
+        t[4] = vals[1] + t[3]; sleep(1);
+        write(r[1], &t[4], bufsize);
+        return 0;
+    }
+
+    t[0] = vals[0] + 1; sleep(1);
+    read(r[0], &t[4], bufsize);
+    t[8] = t[0] * t[4]; sleep(1);
+    read(q[0], &t[9], bufsize);
+    result = t[8] + t[9]; sleep(1);
+
+    printf("(%.1f + 1) * (%.1f + 3 * %.1f / 2) + (%.1f ^ (%.1f + 1)) / (%.1f + 6) = %.3f\n",
+           vals[0], vals[1], vals[2], vals[3], vals[1], vals[4], result);
+    return 0;
+}

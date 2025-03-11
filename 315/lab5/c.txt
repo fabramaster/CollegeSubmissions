@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <unistd.h>
+#include <pthread.h>
+
+// Define a structure to pass multiple args without using arrays
+typedef struct {
+  double a, b, c, d, e;
+} parameters;
+
+// Thread 1
+void* thread1(void* arg) {
+  parameters* p = (parameters*)arg;
+  double t1 = 3 * p->c;
+  sleep(1);
+  double t2 = t1 / 2;
+  sleep(1);
+  double* t3 = malloc(sizeof(double));
+  *t3 = p->b + t2;
+  sleep(1);
+  return t3;
+}
+
+// Thread 2
+void* thread2(void* arg) {
+  parameters* p = (parameters*)arg;
+  double t5 = p->b + 1;
+  sleep(1);
+  double t6 = pow(p->d, t5);
+  sleep(1);
+  double t4 = p->e + 6;
+  sleep(1);
+  double* t7 = malloc(sizeof(double));
+  *t7 = t6 / t4;
+  sleep(1);
+  return t7;
+}
+
+int main(int argc, char *argv[]) {
+  if(argc != 6) {
+    printf("Usage: %s a b c d e\n", argv[0]);
+    return 1;
+  }
+
+  double ans, t8, t9;
+  pthread_t tid1, tid2;
+  parameters p;
+
+  // Assign values directly from the command line arguments
+  p.a = atof(argv[1]);
+  p.b = atof(argv[2]);
+  p.c = atof(argv[3]);
+  p.d = atof(argv[4]);
+  p.e = atof(argv[5]);
+
+  pthread_create(&tid1, NULL, thread1, &p);
+  pthread_create(&tid2, NULL, thread2, &p);
+
+  double* t3;
+  pthread_join(tid1, (void**)&t3);
+  double* t7;
+  pthread_join(tid2, (void**)&t7);
+
+  t8 = p.a + 1;
+  sleep(1);
+  t9 = t8 * *t3;
+  sleep(1);
+  ans = t9 + *t7;
+  sleep(1);
+
+  printf("(%.1f + 1) * (%.1f + 3 * %.1f / 2) + (%.1f ^ (%.1f + 1)) / (%.1f + 6) = %.3f\n",
+         p.a, p.b, p.c, p.d, p.b, p.e, ans);
+
+  return 0;
+}

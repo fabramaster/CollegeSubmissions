@@ -1,0 +1,66 @@
+-- COSC 304 Lab 7 Solution (2022)
+
+CREATE TABLE L7_Trainers AS 
+SELECT DISTINCT trainer tName, rate FROM LABDATA.WorkoutExercises;
+
+CREATE TABLE L7_Clients AS
+SELECT DISTINCT CID ID, name, phone 
+FROM LABDATA.WorkoutExercises ORDER BY ID;
+
+CREATE TABLE L7_Exercises AS
+SELECT DISTINCT ExName, calFactor 
+FROM LABDATA.WorkoutExercises 
+ORDER BY ExName;
+
+CREATE TABLE L7_WorkOuts AS
+SELECT DISTINCT WID ID, WO_DATE, CID, Trainer 
+FROM LABDATA.WorkoutExercises 
+ORDER BY ID;
+
+CREATE TABLE L7_WorkoutExercises AS
+SELECT DISTINCT WID WID, ExName, Reps, Weight 
+FROM LABDATA.WorkoutExercises 
+ORDER BY WID, ExName;
+
+ALTER TABLE L7_Trainers ADD CONSTRAINT L7_Trainers_PK PRIMARY KEY (tName);
+ALTER TABLE L7_Clients ADD CONSTRAINT L7_Clients_PK PRIMARY KEY (ID);
+ALTER TABLE L7_Exercises ADD CONSTRAINT L7_Exercises_PK PRIMARY KEY (EXNAME);
+ALTER TABLE L7_WorkOuts ADD CONSTRAINT L7_WorkOuts_PK PRIMARY KEY (ID);
+ALTER TABLE L7_WorkoutExercises ADD CONSTRAINT L7_WorkoutExercises_PK PRIMARY KEY (WID,EXNAME);
+
+ALTER TABLE L7_WorkOuts ADD CONSTRAINT L7_FK_Client FOREIGN KEY (CID) REFERENCES L7_Clients(ID);
+ALTER TABLE L7_WorkOuts ADD CONSTRAINT L7_FK_Trainer FOREIGN KEY (trainer) REFERENCES L7_Trainers(tName);
+ALTER TABLE L7_WorkoutExercises ADD CONSTRAINT L7_FK_Exercise FOREIGN KEY (EXName) REFERENCES L7_Exercises(ExName);
+ALTER TABLE L7_WorkoutExercises ADD CONSTRAINT L7_FK_Workout FOREIGN KEY (WID) REFERENCES L7_WorkOuts(ID);
+
+-- 1. VIEW L7_Original -----------------
+CREATE OR REPLACE VIEW L7_Original AS
+SELECT w.ID, WO_DATE, w.cID, c.Name, c.phone, w.trainer, RATE, we.ExName,
+       TO_CHAR(calFactor, '0.99') CALFACTOR, Reps, weight,
+       TO_CHAR(calFactor*reps*weight, '990.00') Calories 
+FROM L7_WorkOuts w, L7_Clients c, L7_Trainers t, L7_WorkoutExercises we, L7_Exercises e
+WHERE w.ID = we.WID AND
+      e.ExName = we.ExName AND
+      w.trainer = t.tName AND
+      w.CID = c.ID
+ORDER BY w.ID, we.Exname;
+
+-- 2. VIEW L7_WORKOUT_SUMMARY ----------------
+CREATE OR REPLACE VIEW L7_WORKOUT_SUMMARY AS 
+SELECT w.ID, WO_DATE, c.name, w.trainer, TO_CHAR(SUM(calFactor*reps*weight), '990.00') Total_Calories
+FROM L7_WorkOuts w, L7_Clients c, L7_Trainers t, L7_WorkoutExercises we, L7_Exercises e
+WHERE w.ID = we.WID AND
+      e.ExName = we.ExName AND
+      w.trainer = t.tName AND
+      w.CID = c.ID
+GROUP BY w.ID, WO_DATE, c.name, w.trainer
+ORDER BY w.ID;
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+1)
+The TLS certificate for httpvshttps.com was issued by Let’s Encrypt
+2)
+Public Key System and Key Length: The certificate uses the RSA public key system. As for the key length, it uses a 2048-bit RSA key
+3)
+Hash Function for Integrity Verification: The certificate relies on the SHA-256 (Secure Hash Algorithm 256-bit) hash function
+
+4)
+The certificate for httpvshttps.com expired on February 3, 2018
+5)
+ The certificate issued to the issuer named in Q1 is Let’s Encrypt Authority X3.
+6)
+it employs the SHA-256 (Secure Hash Algorithm 256-bit)
+7)
+The website httpvshttps.com is using the HTTP/2 protocol for secure communication
+8)
+from lines 0010-0030 is the IPV6 address of the sender and reciever
+9)
+Inside the line based text data is the html code of the website, specifically the comments from the developer.
+10)
+Cipher Suite: TLS_RSA_WITH_AES_128_GCM_SHA256 (0x009c)
+11)
+Header Information:
+    • The first 20 bytes (from 0000 to 0019) are the IP header and transport layer header. These include source and destination IP addresses, protocol information, and checksums. 
+    • The 08 00 at offset 0016 indicates that this is an IPv4 packet. 
+      TLS Record Layer:
+    • The TLS record layer begins at offset 0020. 
+    • The first byte (17) represents the content type. it’s an Application Data message. 
+    • The next two bytes (03 03) indicate the TLS version (TLS 1.2). 
+    • The following two bytes (00 22) represent the length of the encrypted data (34 bytes). 
+    • Encrypted Data:
+    • The encrypted data starts at offset 0024 (53 ca 22 bd ...). 
+    • These bytes are opaque to us because they are encrypted making it unreadable without the appropriate decryption keys. 
+
+

@@ -1,0 +1,4 @@
+%60 opacity box for the accordian and with white text
+Change images
+Increase the size 
+SVG black and white symbols for each, Maybe Question Marks

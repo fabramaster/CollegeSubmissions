@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Encryption Service</title>
+    <style>
+        .container {
+            margin: 10% auto;
+            width: 40%;
+            text-align: center;
+            padding: 10px;
+            border: 1px dashed black;
+        }
+        .form-container {
+            margin: 20px auto;
+            width: 40%;
+            text-align: center;
+            padding: 10px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p id="inputText">_PLACEHOLDER_</p>
+    </div>
+    <div class="form-container">
+        <form id="encryptForm" onsubmit="callEncrypt(); return false;">
+            <fieldset>
+                <legend>Encrypt a String:</legend>
+                <input type="text" id="enkey" name="key" placeholder="My Very Secure Key">
+                <input type="text" id="plain" name="plaintext" placeholder="This is a secret message!">
+                <button type="submit">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+    <div class="form-container">
+        <form id="decryptForm" onsubmit="callDecrypt(); return false;">
+            <fieldset>
+                <legend>Decrypt a String:</legend>
+                <input type="text" id="dekey" name="key" placeholder="My Very Secure Key">
+                <input type="text" id="cipher" name="ciphertext" placeholder="My encrypted message text">
+                <button type="submit">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+
+    <script>
+        function getEncrypt(callback) {
+            const key = document.getElementById("enkey").value;
+            const plaintext = document.getElementById("plain").value;
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", `http://127.0.0.1:8080/encrypt?key=${key}&plaintext=${plaintext}`, true);
+            xhr.send();
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+        }
+
+        function callEncrypt() {
+            getEncrypt(response => {
+                document.getElementById("inputText").innerHTML = response;
+            });
+        }
+
+        function getDecrypt(callback) {
+            const key = document.getElementById('dekey').value;
+            const ciphertext = document.getElementById('cipher').value;
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", `http://127.0.0.1:8080/decrypt?key=${key}&cipherText=${ciphertext}`, true);
+            xhr.send();
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(xhr.responseText);
+                }
+            };
+        }
+
+        function callDecrypt() {
+            getDecrypt(response => {
+                document.getElementById("inputText").innerHTML = response;
+            });
+        }
+    </script>
+</body>
+</html>
